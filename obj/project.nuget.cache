@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KVDU048ojloUKQWZgefhPufxPV+9TqBxxkudKzsvyt7dlC/8+vanr/vIyMMUy/atkLN50UyL5usbOG0c67cvxg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\amazi\\source\\repos\\Messenger_Y_Client_WPF\\Messenger_Y_Client_WPF.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\amazi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

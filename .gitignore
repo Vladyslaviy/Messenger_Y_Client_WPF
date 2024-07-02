@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Messenger_Y_Client_WPF/DesignTimeBuild/.dtbcache.v2
+/.vs/Messenger_Y_Client_WPF/FileContentIndex
+/.vs/Messenger_Y_Client_WPF/v17/.futdcache.v2
+/.vs/Messenger_Y_Client_WPF/v17/.futdcache.v2
+/test.json
+/Connections.json
+/testing.xaml
+/bfg-1.13.0.jar

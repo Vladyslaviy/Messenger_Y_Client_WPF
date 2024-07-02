@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AppResources\Background4.png" />
+    <None Remove="Connections.json" />
+    <None Remove="fonts\playwriteautasregular.ttf" />
+    <None Remove="Icons\AppIcon128px.png" />
+    <None Remove="Icons\AppIcon48px.png" />
+    <None Remove="Icons\AppIcon_1.png" />
+    <None Remove="Icons\AppIcon_3_128px.png" />
+    <None Remove="Icons\friends_icon1.jpg" />
+    <None Remove="Icons\friends_icon3.jpg" />
+    <None Remove="Icons\friends_icon3.png" />
+    <None Remove="Icons\friends_icon4.png" />
+    <None Remove="Icons\friends_icon5.png" />
+    <None Remove="Icons\friends_icon6.png" />
+    <None Remove="Images\Background3.png" />
+    <None Remove="Images\Background4.png" />
+    <None Remove="Images\Black_white_background_1.png" />
+    <None Remove="Images\black_white_background_2.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="AppResources\Background4.png" />
+    <Resource Include="background4.png" />
+    <EmbeddedResource Include="Connections.json" />
+    <Resource Include="Icons\AppIcon128px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\AppIcon48px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CustomControlLibrary">
+      <HintPath>..\WpfCustomControls\bin\Debug\CustomControlLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="fonts\playwriteautasregular.ttf" />
+    <Resource Include="Icons\AppIcon_1.png" />
+    <Resource Include="Icons\AppIcon_3_128px.png" />
+    <Resource Include="Icons\friends_icon1.jpg" />
+    <Resource Include="Icons\friends_icon3.jpg" />
+    <Resource Include="Icons\friends_icon3.png" />
+    <Resource Include="Icons\friends_icon4.png" />
+    <Resource Include="Icons\friends_icon5.png" />
+    <Resource Include="Icons\friends_icon6.png" />
+    <Resource Include="Images\Background3.png" />
+    <Resource Include="Images\Background4.png" />
+    <Resource Include="Images\Black_white_background_1.png" />
+    <Resource Include="Images\black_white_background_2.jpeg" />
+  </ItemGroup>
+
+</Project>

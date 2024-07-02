@@ -1,0 +1,399 @@
+﻿<Window x:Class="Messenger_Y_Client_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Messenger_Y_Client_WPF"
+        xmlns:Messenger_Y_Client_WPF="clr-namespace:CustomControlLibrary;assembly=CustomControlLibrary"
+        mc:Ignorable="d"
+        Title="Messenger Y" Height="800" Width="1600"
+        Loaded="Window_Loaded"
+        Icon="pack://application:,,,/Icons/AppIcon_3_128px.png"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/AppResources/MainResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/AppResources/MenuWindow.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/AppResources/RoundedButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/AppResources/CloseButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/AppResources/ChatMemberItem.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/AppResources/ChatButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid Background="Black">
+
+        <Image Source="pack://application:,,,/Images/Background3.png" Stretch="UniformToFill" Opacity="0.8"/>
+        <Grid x:Name="MainGrid" Visibility="Visible">
+
+            <Grid Margin="0,0,0,0" Width="50" x:Name="SidePannel"  HorizontalAlignment="Left" VerticalAlignment="Top"  MouseUp="GridSpace_MouseUp">
+                <Messenger_Y_Client_WPF:RippleEffectDecorator BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" Width="50" Height="50" 
+                                                              MouseUp="FriendsBtn_MouseUp"
+                                                              VerticalAlignment="Top" HorizontalAlignment="Left" cornerRadius="0,0,10,0" 
+                                                              ClipToBounds="True"
+                                                              MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"
+                                                              Background="White" Opacity="1">
+                    <Image Source="pack://application:,,,/Icons/friends_icon6.png" Stretch="Fill"/>
+                </Messenger_Y_Client_WPF:RippleEffectDecorator>
+
+                <!--<Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0" Width="50" Height="50" MouseUp="FriendsBtn_MouseUp"
+                        VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="0,0,10,0" ClipToBounds="True"
+                        MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                    <Border.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Icons/friends_icon3.jpg" Stretch="Fill"/>
+                    </Border.Background>
+                </Border>-->
+            </Grid>
+            <Grid x:Name="ChatSelection">
+                
+            <Grid Margin="53,5,0,60" HorizontalAlignment="Left" VerticalAlignment="Top"  MouseUp="GridSpace_MouseUp">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                    <StackPanel x:Name="ChatsGrid" Margin="0,0,0,5" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <local:RoundedButton x:Name="ChatButtonExample" Visibility="Collapsed" 
+                                                                      BorderThickness="1" BorderBrush="Black" 
+                                                                      Margin="5,5,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                                                      Width="150"
+                                                                      cornerRadius="6"
+                                                                      Background="White"
+                                                                      Opacity="0.8">
+                            <TextBlock TextWrapping="Wrap" x:Name="ChatExampleTB" Text="EXAMPLE" FontSize="18" 
+                                       FontFamily="pack://application:,,,/fonts/#Playwrite AU TAS" 
+                                       VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Center"/>
+                        </local:RoundedButton>
+                            <local:ChatButton Visibility="Collapsed" BorderThickness="1" BorderBrush="Black" 
+                                              Margin="5,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Height="70" cornerRadius="6" Opacity="0.8"
+                                              ContentVerticalAlignment="Top" ContentHorizontalAlignment="Left"
+                                              ChatNameFontSize="20" LastMessageFontSize="18" LastMessage="TEST1 TEST1 TEST TEST TEST Test"
+                                              />
+                            <local:ChatButton Visibility="Collapsed" LastMessage="TEST1 TEST1 TEST TEST TEST Test"
+                                              />
+                        </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <Grid x:Name="SelectedChat" Width="auto" Margin="320,0,0,0">
+                <Grid x:Name="CurrentChatBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" MouseUp="GridSpace_MouseUp">
+                    <TextBlock Text="{Binding CurrentChatNameContent, UpdateSourceTrigger=PropertyChanged}" FontSize="24" Height="40" VerticalAlignment="Top" Margin="0,0,115,0"/>
+                    <TextBlock x:Name="CurrentChatOnlineCountTB" Text="Online" FontSize="15" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                    <local:RoundedButton Background="White" Opacity="1" Foreground="Black" 
+                                                              x:Name="ChatPropertiesBtn" Visibility="Visible" Content="Chat Properties" Margin="0,0,0,0" 
+                                                              HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="110" 
+                                                              Click="ChatPropertiesBtn_Click"
+                                                              cornerRadius="0,0,0,10"
+                                                              FontSize="14"
+                                                              />
+                    
+                </Grid>
+
+                <Grid x:Name="MessagingPart"  Margin="0,67,10,10" MouseUp="GridSpace_MouseUp" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBox Visibility="Collapsed" Grid.Row="0" x:Name="MessagesTB" Text="" Margin="0,10,0,5" Background="Transparent" TextWrapping="Wrap" IsReadOnly="True">
+                        <TextBox.Effect>
+                            <DropShadowEffect Color="White" Direction="0" ShadowDepth="0" Opacity="1"/>
+                        </TextBox.Effect>
+                    </TextBox>
+
+                    <Grid x:Name="MessagesScrollViewGrid" Grid.Row="0" Margin="0,10,0,5" Background="Transparent">
+                        <Grid.Resources>
+                            <local:PercentageConverter x:Key="PercentageConverter"/>
+                        </Grid.Resources>
+                        <ScrollViewer x:Name="MessagesScrollView" Background="Transparent">
+                            <StackPanel x:Name="MessagesStackPanel" Height="auto">
+
+                                <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+                                <Grid x:Name="MessageTemplate" Margin="10,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="auto">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="1" BorderBrush="White" BorderThickness="1" CornerRadius="6" Background="Black" Opacity="0.9" Width="1000" Height="auto" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="TestAAAAAAAAAAAAA" Grid.Row="0" FontSize="18" Foreground="LightGray" Margin="5,5,5,5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="TestTTTTTTTTTT" Grid.Row="0" FontSize="18" Foreground="LightGray" Margin="5,5,5,5" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Row="1" Margin="5,5,5,5" TextWrapping="Wrap" Text="a" Foreground="White" FontSize="18" >
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+                                <Grid x:Name="MessageTemplate1" Grid.Row="1" Margin="10,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="auto">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="1" BorderBrush="White" BorderThickness="1" CornerRadius="6" Background="Black" Opacity="0.9" Width="{Binding ActualWidth, ElementName=MessagesStackPanel, Converter={StaticResource PercentageConverter}, ConverterParameter=65}" Height="auto" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Test" Grid.Row="0" Grid.Column="0" FontSize="18" Foreground="LightGray" Margin="5,5,5,5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="Test" Grid.Row="0" Grid.Column="1" FontSize="18" Foreground="LightGray" Margin="5,5,5,5" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Row="1" Margin="5,5,5,5" TextWrapping="Wrap" Text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" Foreground="White" FontSize="18" >
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+
+
+                    <Grid Grid.Row="1" Height="auto" VerticalAlignment="Bottom" x:Name="MessageSendingGrid" Visibility="Visible">
+                        <!--<Border Style="{StaticResource RoundedBorderStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="auto">-->
+                        <Messenger_Y_Client_WPF:RippleEffectDecorator cornerRadius="10" x:Name="SendBtn" HighlightBackground="Blue" 
+                                                                  MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" 
+                                                                  Height="46" Background="White" Foreground="Black" 
+                                                                  MouseUp="SendBtn_MouseUp"
+                                                                  Margin="0,0,10,0" 
+                                                                  HorizontalAlignment="Right"
+                                                                  VerticalAlignment="Bottom"
+                                                                  Width="120"
+                                                                  >
+                            <Label Content="Send" FontSize="16px" FontFamily="pack://application:,,,/fonts/playwriteautas-regular.ttf"
+                               Margin="30,0,0,0"
+                               />
+                        </Messenger_Y_Client_WPF:RippleEffectDecorator>
+                        <TextBox Style="{StaticResource RoundedTextBox}" SelectionChanged="SendingMessageTB_SelectionChanged" 
+                             MouseDown="SendingMessageTB_MouseDown" TextWrapping="Wrap" Height="46" TextChanged="SendingMessageTB_TextChanged"  
+                             x:Name="SendingMessageTB" FontSize="18" Text="Type a message..." Foreground="LightGray" 
+                             Margin="0,0,85,0" KeyUp="SendingMessageTB_KeyUp" VerticalAlignment="Bottom" GotFocus="SendingMessageTB_GotFocus">
+                            <TextBox.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#CC000000" Offset="0.6" />
+                                    <GradientStop Color="#FF000000" Offset="0.8" />
+                                </LinearGradientBrush>
+                            </TextBox.Background>
+                        </TextBox>
+
+                        <Button Content="SpamTest" Visibility="Collapsed"
+                        Click="SpamTestBtn_Click" Height="46" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="80" Margin="415,0,0,0"
+                        />
+                    </Grid>
+                </Grid>
+            </Grid>
+            </Grid>
+            <Messenger_Y_Client_WPF:RippleEffectDecorator Content="Create Chat" MouseUp="OpenChatCreateBtn_Click" VerticalAlignment="Bottom" 
+                                                          HorizontalAlignment="Left" Width="80" Height="40" Margin="125,0,0,5" Background="White"
+                                                          MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"
+                                                          cornerRadius="10"
+                                                          />
+
+
+            <!--<Button Content="Create Chat" MouseUp="GridSpace_MouseUp" Click="OpenChatCreateBtn_Click" VerticalAlignment="Bottom" 
+                        HorizontalAlignment="Left" Width="80" Height="40" Margin="125,0,0,5"/>-->
+
+            <Border Visibility="Collapsed" x:Name="CreateChatGrid" CornerRadius="10" ClipToBounds="True" Width="460" Height="auto" Margin="0,0,0,0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Border CornerRadius="10" Opacity="0.8">
+                        <Border.Background>
+                            <ImageBrush ImageSource="pack://application:,,,/Images/Background4.png" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,25,0,0">
+                        <Messenger_Y_Client_WPF:RippleEffectDecorator Background="White" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" 
+                                                                  cornerRadius="0,10,0,10"  Margin="265,0,0,0" 
+                                                                  MouseUp="CreateChatBtn_Click" Width="110" Height="35" VerticalAlignment="Top" 
+                                                                  HorizontalAlignment="Left"
+                                                                  >
+                            <Label Content="Create chat" Margin="30,0,0,0" FontSize="13"/>
+                        </Messenger_Y_Client_WPF:RippleEffectDecorator>
+                        <TextBox Style="{StaticResource RoundedTextBox}" TextChanged="NewChatNameTB_TextChanged" x:Name="NewChatNameTB" Margin="0,0,0,0" Height="35"
+                                 Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Text="" FontSize="18"/>
+                    </Grid>
+                    <Border BorderBrush="{x:Null}" Margin="275,74,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="290">
+                        <TextBlock TextWrapping="Wrap" x:Name="CreateChatFeedbackTB" Text="" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ListBox x:Name="CreateChatFriendsListLB" Margin="0,74,0,20" Width="376" Height="400" ClipToBounds="True" HorizontalAlignment="Center" 
+                             VerticalAlignment="Top" BorderThickness="1" BorderBrush="White">
+                        <ListBox.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.6"/>
+                        </ListBox.Background>
+                        <ListBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </ListBox.Resources>
+                        <ListBoxItem Visibility="Collapsed">
+                            <CheckBox Content="Test"/>
+                        </ListBoxItem>
+                        <ListBoxItem Visibility="Collapsed">
+                            <CheckBox Content="Test"/>
+                        </ListBoxItem>
+                    </ListBox>
+                    <Messenger_Y_Client_WPF:RippleEffectDecorator Background="White" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" cornerRadius="0,10,0,10" Content="X" Margin="0,0,0,0" MouseUp="CloseCreateChatBtn_Click" Width="39" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+
+                </Grid>
+            </Border>
+
+            <Border Visibility="Collapsed" x:Name="FriendsGrid" Background="Black" CornerRadius="10" ClipToBounds="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="666" Height="434">
+                <Grid>
+                    <Border CornerRadius="10" Opacity="0.8">
+                        <Border.Background>
+                            <ImageBrush ImageSource="pack://application:,,,/Images/Background4.png" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <Grid Name="YourFriends" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <TextBlock Text="Your friends" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <ListBox x:Name="FriendsListLB" Width="272" Height="357" Margin="0,21,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <ListBoxItem Content="Test" Visibility="Collapsed" Style="{StaticResource StyledListBoxItem}"/> 
+                            <ListBoxItem Content="Test" Visibility="Collapsed" Style="{StaticResource StyledListBoxItem}"/>
+                        </ListBox>
+                    </Grid>
+                    <Grid Margin="253,10,10,0" Name="AddFriend">
+                        <TextBlock Text="Add friend" Width="100" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,14,0,0"/>
+                        <TextBlock Text="Enter your friend username:" Width="200" Height="20" Margin="35,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+                        <local:RoundedButton Background="White" cornerRadius="0,10,0,10"  Margin="333,59,0,0" 
+                                                                  Click="AddFriendBtn_Click" Width="55" Height="35" VerticalAlignment="Top" 
+                                                                  HorizontalAlignment="Left" Content="Add"
+                                                                  >
+                        </local:RoundedButton>
+                        <TextBox x:Name="FriendUsernameSearchTB" Style="{StaticResource RoundedTextBox}" Margin="35,59,0,0" Width="296" Height="35" VerticalAlignment="Top" 
+                                 HorizontalAlignment="Left"></TextBox>
+                        <!--<TextBlock  Text="" x:Name="addFriendFeedbackTB" Margin="0,79,75,0"/>-->
+                    </Grid>
+                    <Messenger_Y_Client_WPF:RippleEffectDecorator Background="White" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" cornerRadius="0,10,0,10" Content="X" 
+                                                                  Margin="0,0,0,0" MouseUp="CloseFriendsGridBtn_Click" Width="39" Height="30" VerticalAlignment="Top" 
+                                                                  HorizontalAlignment="Right"/>
+
+                </Grid>
+            </Border>
+            <local:MenuWindow Visibility="Collapsed" x:Name="ChatPropertiesGrid" Width="500" Height="650"
+                              VerticalAlignment="Center" HorizontalAlignment="Center" Background="Black">
+                <Grid>
+                    <Border Background="Transparent" MouseUp="EmptySpace_MouseUp"/>
+                    <Grid x:Name="ChatProps">
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <TextBlock x:Name="CurrentChatNameTB" Text="{Binding CurrentChatNameContent, UpdateSourceTrigger=PropertyChanged}" FontSize="25" />
+                            <TextBox Style="{StaticResource RoundedTextBox}" x:Name="ChangeChatNameTB" KeyUp="ChangeChatNameTB_KeyUp" Text="Test" 
+                                     HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="25" Foreground="White">
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.6"/>
+                                </TextBox.Background>
+                            </TextBox>
+                            <local:RoundedButton x:Name="ChangeChatNameBtn" Click="ChangeChatNameBtn_Click" Visibility="Visible" Width="80" Margin="0,0,-82,0" Content="Change name" 
+                                                 FontSize="12" HorizontalAlignment="Right" Height="40"/>
+                        </Grid>
+
+                        <TextBlock Text="Chat members:" Margin="48,24,332,598" FontSize="17"/>
+                        <Grid x:Name="AvoidedParent" Margin="0,55,0,0" Width="402" Height="573" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ListBox Grid.Row="0" x:Name="CurrentChatMembersLB" Padding="0,10,0,0" ItemContainerStyle="{StaticResource CustomListBoxItemStyle}">
+                                <local:ChatMemberItem MemberName="ME" isYou="True" />
+                                <local:ChatMemberItem MemberName="ME" isYou="True" />
+                            </ListBox>
+                            <local:RoundedButton x:Name="AddMemberBtn" Grid.Row="1" Visibility="Visible" VerticalAlignment="Center" Content="Add member" Height="35" 
+                                                 Click="AddChatMemberBtn_Click"/>
+                        </Grid>
+                        <Grid x:Name="ChatMembersContextMenu" Visibility="Collapsed" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                              Width="150" Height="auto" Opacity="0.8" Margin="125,89,0,0">
+                            <StackPanel>
+                                <local:RoundedButton x:Name="ContextMenuBtn_1" Click="ContextMenuBtn_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Height="35" Content="Promote to Admin"/>
+                                <local:RoundedButton x:Name="ContextMenuBtn_2" Click="ContextMenuBtn_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Height="35" Content="Promote to Member"/>
+                                <local:RoundedButton x:Name="ContextMenuBtn_3" Click="ContextMenuBtn_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Height="35" Content="Demote to Member"/>
+                                <local:RoundedButton x:Name="ContextMenuBtn_4" Click="ContextMenuBtn_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Height="35" Content="Demote to Spectator"/>
+                                <local:RoundedButton x:Name="ContextMenuBtn_5" Click="ContextMenuBtn_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Height="35" Content="Kick from Chat" Foreground="red"/>
+                            </StackPanel>
+                        </Grid>
+                        <!--<Button Content="X" Margin="0,0,0,0" Click="CloseChatPropBtn_Click" Width="39" Height="30" VerticalAlignment="Top" 
+                            HorizontalAlignment="Right"/>-->
+                        <local:CloseButton Click="CloseChatPropBtn_Click"/>
+                    </Grid>
+                    <local:MenuWindow Visibility="Collapsed" x:Name="AddChatMemberGrid" VerticalAlignment="Center" HorizontalAlignment="Center" Height="400" Width="450">
+                        <Grid>
+                            <Grid.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.5"/>
+                            </Grid.Background>
+                            <TextBlock Text="Friends:" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Top" Foreground="White"/>
+                            <ListBox x:Name="AddMemberListLB" Margin="0,24,0,25">
+                                <ListBox.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                                </ListBox.Background>
+                                <ListBoxItem Style="{StaticResource StyledListBoxItem}">
+                                    Sssssssssssssssssss
+                                </ListBoxItem>
+                                <ListBoxItem Style="{StaticResource StyledListBoxItem}">
+                                    Sssssssssssssssssssa
+                                </ListBoxItem>
+                            </ListBox>
+                            <local:RoundedButton Margin="0,0,0,0" Content="Add selected to chat" Height="35" VerticalAlignment="Bottom" Click="AddNewMembersBtn_Click"/>
+                        </Grid>
+                    </local:MenuWindow>
+
+                </Grid>
+            </local:MenuWindow>
+        </Grid>
+        <Grid x:Name="LoginGrid" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border BorderBrush="{x:Null}" Margin="0,99,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Center" Width="276">
+                <TextBlock TextWrapping="Wrap" x:Name="LoginFeedbackTB" Text="" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+
+            <TextBlock TextWrapping="Wrap" Text="Username" FontSize="13" Margin="0,136,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234"/>
+            <TextBox x:Name="LoginTB" Margin="0,155,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center" Width="249"/>
+
+            <TextBlock TextWrapping="Wrap" Text="Password" FontSize="13" Margin="0,185,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234"/>
+            <TextBox x:Name="PasswordTB" Margin="0,204,0,0" HorizontalAlignment="Center" Width="249" Height="26" VerticalAlignment="Top"/>
+
+            <Button Content="Log In" Click="LogInBtn_Click" Margin="0,242,0,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Width="176" />
+
+
+            <Border BorderBrush="{x:Null}" Margin="0,267,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234">
+                <TextBlock TextWrapping="Wrap" Text="OR" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <Button Content="Create a new account" Click="RegisterBackBtn_Click" Margin="0,288,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center" Width="176" />
+
+        </Grid>
+        <Grid x:Name="RegisterGrid" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border BorderBrush="{x:Null}" Margin="0,24,0,0" Height="55" VerticalAlignment="Top" HorizontalAlignment="Center" Width="348">
+                <TextBlock TextWrapping="Wrap" x:Name="RegisterFeedbackTB" Text="" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+
+            <TextBlock TextWrapping="Wrap" Text="Email" FontSize="13" Margin="0,84,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234"/>
+            <TextBox x:Name="EmailTB" Margin="0,106,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center" Width="249"/>
+
+
+            <TextBlock TextWrapping="Wrap" Text="Username" FontSize="13" Margin="0,136,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234"/>
+            <TextBox x:Name="RLoginTB" Margin="0,155,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Center" Width="249"/>
+
+            <TextBlock TextWrapping="Wrap" Text="Password" FontSize="13" Margin="0,185,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234"/>
+            <TextBox x:Name="RPasswordTB" Margin="0,204,0,0" HorizontalAlignment="Center" Width="249" Height="26" VerticalAlignment="Top"/>
+
+            <TextBlock TextWrapping="Wrap" Text="Repeat your password" FontSize="13" Margin="0,235,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234"/>
+            <TextBox x:Name="RPasswordRepeatTB" Margin="0,257,0,0" HorizontalAlignment="Center" Width="250" Height="26" VerticalAlignment="Top"/>
+
+            <Button Content="Register" Click="RegisterBtn_Click" Margin="0,297,0,0" Height="29" VerticalAlignment="Top" HorizontalAlignment="Center" Width="176" />
+            <Border BorderBrush="{x:Null}" Margin="0,331,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Center" Width="234">
+                <TextBlock TextWrapping="Wrap" Text="OR" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <Button Content="Log in to excisting account" Click="LogInBackBtn_Click" Margin="0,352,0,0" Height="29" VerticalAlignment="Top" HorizontalAlignment="Center" Width="176" />
+
+        </Grid>
+        <Border Visibility="Collapsed" x:Name="ErrorMessageBlock" CornerRadius="6" Width="auto" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Center"
+                Background="#FF0909" Opacity="1" BorderThickness="1" BorderBrush="White" Margin="0,10,0,0"
+                >
+            <TextBlock x:Name="ErrorMessageTB" Background="Transparent" Foreground="Black" Text="TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING" MaxWidth="300" FontSize="17" Margin="10,10,10,10" VerticalAlignment="Center"
+                     HorizontalAlignment="Center" TextWrapping="Wrap"/>
+        </Border>
+
+    </Grid>
+</Window>
